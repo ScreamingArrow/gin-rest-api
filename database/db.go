@@ -2,7 +2,9 @@ package database
 
 import (
 	"log"
+	"os"
 
+	"github.com/screamingarrow/gin-rest-api/env"
 	"github.com/screamingarrow/gin-rest-api/models"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
@@ -14,7 +16,8 @@ var (
 )
 
 func ConectaDb() {
-	stringDeConexao := "host=localhost user=postgres password=admin dbname=alunos port=5432 sslmode=disable"
+	env.SetEnv()
+	stringDeConexao := os.Getenv("CONNECTION_STRING")
 
 	DB, err = gorm.Open(postgres.Open(stringDeConexao))
 	if err != nil {
